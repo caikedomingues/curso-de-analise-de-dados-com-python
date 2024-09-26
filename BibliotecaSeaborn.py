@@ -17,6 +17,9 @@ import pandas as pd
 # biblioteca de visualização de dados
 import seaborn as sns
 
+# Será usado para exibir os gráfcos
+import matplotlib.pyplot as plt
+
 # Definindo um tema no seaborn
 # Configura o tema padrão dos gráficos do seaborn
 sns.set_theme(style='darkgrid')
@@ -57,3 +60,40 @@ base_dados.rename(columns={
 print("COLUNAS RENOMEADAS")
 
 print(base_dados.head())
+
+
+
+# Gráfico relplot: é uma função projetada para visualizar a relação
+# entre duas ou mais variáveis em um conjunto de dados. Exemplos de
+# utilização do relplot:
+# Visualização de relações: para visualizar a relação entre 2 variáveis continuas. é particularmente útil para identificar tendencias, padrões e
+# agrupamentos em dados.
+
+# Tipo de Gráfico: por padrão, o relplot cria um gráfico de dispersão.
+# No entanto, você também pode configurar para gerar gráficos de linha,
+# dependendo do tipo dos dados.
+
+# Facetas: o relplot permite que você crie multiplos subgráficos
+
+# A função relplot recebe como argumentos os valores do eixo x, os valores
+# do eixo y e a base de dados que será utilizada na criação dos gráficos 
+sns.relplot(x='Total_Conta', y='Gorjeta',data= base_dados)
+
+# Exibição do gráfico
+plt.show()
+
+# Passando outro parametro como classe no gráfico
+# O hue separa os dados em categorias, no caso, vamos separar os dados
+# por sexo.
+sns.relplot(x = 'Total_Conta', y='Gorjeta', data=base_dados, hue='Sexo')
+
+# Exibe o gráfico
+plt.show()
+
+# é possivel escolher no relplot o tipo do gráfico que será gerado
+# através do parametro kind da função
+
+sns.relplot(x='Total_Conta', y='Gorjeta', data=base_dados, kind='line')
+
+# Exibição do gráfico
+plt.show()
