@@ -97,3 +97,98 @@ sns.relplot(x='Total_Conta', y='Gorjeta', data=base_dados, kind='line')
 
 # Exibição do gráfico
 plt.show()
+
+# Nessa parte, vamos criar um gráfico de linhas mostrando a relação 
+# do valor da conta com a gorjeta. Nesse gráfico vamos separar os dados
+# em duas categorias: fumantes e não fumantes
+
+sns.relplot(x='Total_Conta', y='Gorjeta', data=base_dados, hue='Fumante', kind='line')
+
+plt.show()
+
+# Hisplot: Função utilizada para criar histogramas, que são gráficos que
+# mostram a distribuição de um conjunto de dados. Em análise de dados, ele é util para visualizar como os dados estão distribuidos ao longo de intervalos ou bins, o que pode ajudar a identificar padrões como assimetria,
+# outliers ou a forma geral da distribuição(normal, uniforme, etc)
+
+# Distribuição de dados: Mostra como os dados estão distribuidos, permitindo
+# visualizar frequências e identificar padrões, como uma distribuição normal
+# ou enviesada.
+
+# A função recebe como parametro a base de dados e o eixo 
+sns.histplot(data=base_dados, x='Total_Conta')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Nos histplot também é possivel separar os dados por categoria utilizando 
+# o hue
+
+sns.histplot(data=base_dados, x='Total_Conta', hue='Fumante')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Barplot: é utilizado para criar graficos de barras que são uteis
+# para visualizar comparações entre variáveis numericas e categóricas
+# mostrando as médias ou outros estimadores 
+
+# No exemplo, vamos comparar o total das contas entre homens e mulheres
+# fumantes e não fumantes
+
+# A função ira receber como parametro a base de dados, o eixo x, o eixo y e o hue que ira separar a categoria dos dados
+sns.barplot(data=base_dados, x='Sexo', y='Total_Conta', hue='Fumante')
+
+# Exibição do gráfico
+plt.show()
+
+
+# parlplot: Serve para gerar gráficos de dispersão(scatter plots) entre
+# todas as combinações possiveis de variáveis numericas em conjunto de dados
+# e também inclui histogramas ou (KDES) das distribuições individuais de cada variável.
+# Ele é muito util na analise de dados exploratórias para identificar padrões, correlações e relações entre as variáveis.
+
+# A função recebe como parametro apenas a base de dados que será
+# análisada.
+
+# Observação: se a sua base de dados for muito grande, ele exigira
+# muita capacidade de memória pra ser processada
+sns.pairplot(base_dados)
+
+# Exibição do gráfico
+plt.show()
+
+
+# no pairplot é possivel separar por categorias usando o hue
+
+sns.pairplot(base_dados, hue='Sexo')
+# Exibição do gráfico
+plt.show()
+
+# No pairplot é possivel utilizar o kind para escolher o tipo de gráfico
+# de correlação que será utilizado
+
+# kde: É uma técnica de estatistica usada para estimar a distribuição de
+# uma varoável continua com base em uma amostra de dados. Em vez de de exibir a frequência exata de observações, o kde cria uma curva suavizada
+# que representa a probabilidade de valores diferentes
+
+# Variável contnua: variável que pode assumir qualquer valor dentro de
+# um intervalo. Em outras palavras, ela pode ter uma infinidade de 
+# valores possiveis, incluindo números decimais
+
+sns.pairplot(base_dados, kind='kde')
+# Exibição de gráfico
+plt.show()
+
+# Boxplot
+sns.boxplot(base_dados, x = 'Dia_Semana', y = 'Total_Conta')
+# Exibição do gráfico
+plt.show()
+
+# Boxlplot com hue para separar por categorias
+
+sns.boxplot(base_dados, x='Dia_Semana', y='Total_Conta', hue='Sexo')
+
+# Exibição do gráfico
+plt.show()
