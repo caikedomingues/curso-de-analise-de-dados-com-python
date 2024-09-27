@@ -65,3 +65,87 @@ print("terceiro quartil: ", base_dados['sepal_length'].describe()[6])
 amplitude_interqualitica = base_dados['sepal_length'].describe()[6] - base_dados['sepal_length'].describe()[4]
 
 print("Amplitude Interqualitica ", amplitude_interqualitica)
+
+# Amplitude semi-interqualitica: é definida como a média aritmética
+# da diferença entre mediana e os quartis. Basicamente é a média
+# aritmética do primeiro e do terceiro quartil
+
+# Cáculo da amplitude semi-interqualitica
+print("CALCULO DA AMPLITUDE SEMI-INTERQUALITICA")
+
+# filtrando o primeiro quartil da coluna
+primeiro_quartil = base_dados['sepal_length'].describe()[4]
+
+# filtrando o terceiro quartil da coluna
+terceiro_quartil = base_dados['sepal_length'].describe()[6]
+
+# Calculo da média aritme´tica da diferença entre os quartis
+amplitude_semi_interqualitica = (terceiro_quartil -  primeiro_quartil) / 2
+
+print("amplitude semi-interqualitica: ", amplitude_semi_interqualitica)
+
+# Variança: Medida de dispersão que mostra quão distantes os valores 
+# estão da média, para calcular o valor, vamos usar a função var()
+
+print("CÁLCULO DA VARIÂNCIA DA COLUNA SEPAL LENGTH")
+
+print(base_dados['sepal_length'].var())
+
+# Desvio padrão: é o resultado positivo da raiz quadrada da variância
+
+print("DESVIO PADRÃO DA COLUNA SEPAL_LENGTH")
+
+print(base_dados['sepal_length'].std())
+
+# Medidas de assimetria: é um indicador da forma de distribuição de
+# frequência e/ou um histograma, esta-se buscando, também, identificar
+# a forma da distribuição dos dados.
+
+# simetrica: se média = mediana = moda ou As = 0
+
+# assimétrica negativa: se média <= mediana <= moda ou As < 0
+
+# assimetrica positiva: se moda <= mediana <= media ou As > 0
+
+# As: coeficientes de simetria, é uma medida que descreve a simetria
+# de uma distribuição de dados.
+
+# Função que ira calcular a assimetria da coluna sepal_length
+
+print("CALCULO DA ASSIMETRIA DA COLUNA SEPAL_LENGTH")
+
+print(base_dados['sepal_length'].skew())
+
+# Vamos visualizar melhor essa assimetria (positiva no nosso caso) usando um gráfico kdeplot
+
+# kdeplot: Representação gráfia da função de densidade de probabilidade
+# de uma variável continua. Ele é uma forma suavizada do histograma
+# e fornece uma estimativa da densidade de probabilidade de uma 
+# variável em um determinado intervalo.
+
+# A função recebe como parametro a base de dados com a coluna que será
+# análisada
+sns.kdeplot(base_dados['sepal_length'])
+
+# Exibição do gráfico
+plt.show()
+
+# Medidas de Curtose: A medida de curtose é o grau de achatamento da 
+# distribuição, é um indicador da forma de distribuição.
+
+# leptocurtica: Quando a distribuição apresenta uma curva de frequência
+# bastante fechada, com os dados fortemente concentrados em torno de seu
+# centro, k < 0,263
+
+# Mesocurtica: quando os dados estão razoavelmente concentrados em torno
+# do seu centro, k = 0,263
+
+# platicurtica: quando a distribuição apresenta uma curva de frequencia 
+# mais aberta, com os dados francamente concentrados em do torno do seu
+# centro k = 0,263
+
+# Podemos calcular a curtose através da função kurtosis
+
+print("MEDIDA CURTOSE DA COLUNA SEPAL_LENGTH")
+
+print(base_dados['sepal_length'].kurtosis())
