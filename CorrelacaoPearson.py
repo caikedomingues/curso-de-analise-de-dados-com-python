@@ -57,5 +57,5 @@ plt.show()
 
 # Outra maneira de visualizar correlaçoes é através de scatterplots
 sns.scatterplot(data=base_dados, x='petal_length', y='petal_width')
-
+# Exibição di gráfico
 plt.show()
