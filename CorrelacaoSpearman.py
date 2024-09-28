@@ -41,8 +41,10 @@ plt.show()
 
 
 # Vamos ver agora a correlação em um scatterplot (gráfico de dispersão)
-
+# O scatterplot recebe como parâmetro a base de dados, a coluna que 
+# ocupará o eixo x e a coluna que irá ocupar o eixo y.
 sns.scatterplot(data=colunas_numericas, x='petal_length', y='petal_width')
 
+# Exibição do gráfico
 plt.show()
 
