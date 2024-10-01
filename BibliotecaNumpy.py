@@ -76,3 +76,34 @@ print("Valores do array 1000: ", array_1000)
 
 print("Tamanho do array: ", len(array_1000))
 
+# Assim como as listas, é necessário saber acessar os itens de um array numpy
+
+print('Acessando a 1° dimensão do array dias: ', dias[0])
+
+print("Acessando a 1° posição da 1° dimensão: ", dias[0][0])
+
+
+print("Ultima dimensão do array dias: ", dias[-1])
+
+print("Ultima posição do 1° array: ", dias[-1][-1])
+
+# É possivel somar, subtrair, dividir ou multiplicar os valores de um array, por exemplo, vamos somar a primeira posição da primeira dimensão com a 1° posição da ultima dimensão do array dias
+# Como vimos anteriormente, para acessarmos os elementos do array
+# 2d temos que acessar a dimensão(linha) do array e a posição do valor que
+# queremos acessar.
+soma_arrays = dias[0][0] + dias[1][4]
+
+print("Soma dos arrays: ", soma_arrays)
+
+
+# Também é possivel realizar operações lógicas usando arrays
+
+print("São iguais? ", dias[0][0] == dias[1][4])
+
+print("São diferentes? ", dias[0][0] != dias[1][4])
+
+
+# Acessando o tamanho do array de dimensões
+# 1° valor: O tamanho da linha (dimensões)
+# 2° valor: A quantidade de colunas
+print("Tamanho do array de dimensões: ", dias.shape)
