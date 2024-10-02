@@ -107,3 +107,38 @@ print("São diferentes? ", dias[0][0] != dias[1][4])
 # 1° valor: O tamanho da linha (dimensões)
 # 2° valor: A quantidade de colunas
 print("Tamanho do array de dimensões: ", dias.shape)
+
+# É possivel percorrer o array usando o loop
+
+for loop in dias:
+    
+    print("Valores do array dias: ", loop)
+    
+    
+# Percorrendo apenas uma dimensão do array multidimensional
+
+for loop in dias[0]:
+    
+    print("Primeira dimensão do array dias: ", loop)
+
+# É possivel converter um array em um dataframe usando o pandas
+
+import pandas as pd
+
+data_frame_array = pd.DataFrame(dias)
+
+print("CONVERTENDO ARRAY EM UM DATAFRAME")
+
+print(data_frame_array)
+
+# Podemos alterar o nome das colunas do dataframe gerado por um array
+
+print("ALTERANDO O NOME DA COLUNA")
+
+# Para alterar basta usar o parametro columns que ira receber como
+# valor, uma lista de nomes para cada coluna
+# Observação: se você não nomear todas as colunas a função dataframe 
+# ira apresentar erro.
+alterando_a_coluna = pd.DataFrame(dias, columns=['Coluna1', 'Coluna2', 'Coluna3', 'Coluna4', 'Coluna5'])
+
+print(alterando_a_coluna)
