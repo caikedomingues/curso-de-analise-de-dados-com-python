@@ -3,7 +3,7 @@
 # Projeto Unicórnio
 # 'Unicornio' é um termo usado na industria de capital de risco para 
 # descrever uma startup de capital fechado com valor superior a 1
-# bilhão. O termo foi popularizado pela primeira vez pela capilista
+# bilhão. O termo foi popularizado pela primeira vez pela capitalista
 # de risco AIllen Lee, fundadora da Cowboy Ventures, um fundo de
 # capital de risco com sede em Palo Alto, California.
 
@@ -57,8 +57,40 @@ print(base_dados.shape)
 # Verificação dos primeiros registros da tabela
 print("PRIMEIROS REGISTROS DO DATASET")
 
-# Irá mostrar todas as colunas do dataset
+# Irá mostrar todas as colunas do dataset, onde o none indica que o pandas
+# deve remover qualquer limitação de numeros de coluna exibidas nos outputs
+# do pandas. Ou seja, ao informar o None, o pandas ira entender que todas
+# as colunas devem ser mostradas
 pd.set_option('display.max_columns', None) 
 
-# 
+# ira mostrar as 5 primeiras linhas de cada coluna do dataset
+# Observação: é possivel passar como parametro para a função 
+# head o numero de linhas que você quer visualizar
 print(base_dados.head())
+
+# Verificação das colunas existentes na tabela
+
+print("COLUNAS DO DATASET")
+print(base_dados.columns)
+
+# Renomeando as colunas com a função rename
+# Antes de iniciar o rename vamos eliminar os espaços em branco
+# existentes no nome das colunas
+base_dados.columns = base_dados.columns.str.strip()
+
+base_dados.rename({
+    'Company': 'Empresa'
+    #'Valuation ($B)': 'Valor ($)', 
+    #'Date Joined': 'Data de Adesão', 
+    #'Country': 'Pais',
+    #'City': 'Cidade',
+    #'Industry': 'Setor',
+    #'Investors': 'Investidores'
+},inplace=True) # O parametro inplace=True faz com que a alteração seja aplicada diretamente no dataframe original sem a necessidade de criar
+# uma cópia
+
+# Verificando se os nomes das colunas foram modificados
+
+print("VERIFICANDO O NOME DAS COLUNAS")
+
+print(base_dados.columns) 
