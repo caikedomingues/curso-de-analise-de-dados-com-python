@@ -147,7 +147,7 @@ provas = ['math score', 'reading score', 'writing score']
 
 #pd.set_option('display.max_columns', None) (Ira mostrar todas as colunas)
 
-#pd.set_option('display.max_rows', None)  (Ira mostrar todas as colunas)
+#pd.set_option('display.max_rows', None)  (Ira mostrar todas as linhas)
 
 # Se quiser voltar aos padrões basta digitar
 # os comando: pd.set_option('display.max_columns'), pd.set_option('display.max_rows') 
