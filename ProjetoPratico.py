@@ -124,5 +124,57 @@ print(base_dados.isnull().sum())
 base_dados_sem_nulos = base_dados.dropna(subset=['Investidores'])
 
 print("VERFICANDO SE OS VALORES NULOS FORAM APAGADOS")
-
+# Agora vamos usar a variável base_dados_sem_nulos para podermos
+# acessar as informações atualizadas do dataframe
 print(base_dados_sem_nulos.isnull().sum())
+
+# Verificando valores unicos: valores que são diferentes (não se repetem).
+# Para verificar essas informações vamos usar a função nunique que retorna
+# a quantidade de valores unicos de cada coluna.
+print("QUANTIDADE DE VALORES UNICOS")
+print(base_dados_sem_nulos.nunique())
+
+# Verificando os valores nulos de uma coluna especifica
+
+print("QUANTIDADE DE VALORSS ÚNICOS DA COLUNA SETOR")
+
+print(base_dados_sem_nulos['Setor'].nunique())
+
+# Para visualizar os valores unicos das colunas, usamos o metodo
+# unique que ira mostrar os valores unicos das colunas.
+
+print("vALORES UNICOS DAS COLUNA SETOR")
+
+print(base_dados_sem_nulos['Setor'].unique())
+
+# Verificando a frequência que os valores únicos aparecem 
+# na coluna setor, Para realizar essa ação, vamos utilizar
+# o método value_counts que tem como objetivo cnntar a 
+# frequência dos valores únicos em uma coluna. Ela retorna
+# uma Series onde os valores distintos da coluna
+# são os indices e as respectivas contagens são os dados
+# associados.
+# Resumindo, a função ira contar quantas vezes cada valor
+# unico ira aparecer em uma determinada coluna.
+print("RANK DOS VALORES UNICOS DA COLUNA SETOR")
+
+print(base_dados_sem_nulos['Setor'].value_counts())
+
+# O value conts também permite visualizar a porcentagem da 
+# frequencia do valor unico na coluna.
+# Para funcionar basta passar como parametro o normalize como
+# True.
+print("PORCENTAGEM DA FREQUENCIA DE VALORES ÚNICOS DA COLUNA SETOR")
+
+print(base_dados_sem_nulos.value_counts(normalize=True))
+
+
+# Vamos verificar a frequencia de valores unicos em um grafico de barras
+# usando a biblioteca matplotlib.pyplot.
+
+plt.title('PORCENTAGEM DE FREQUÊNCIA DE VALORES ÚNICOS')
+plt.figure(figsize=(15,6))
+plt.bar(base_dados_sem_nulos['Setor'].value_counts().index, base_dados_sem_nulos['Setor'].value_counts())
+plt.xticks(rotation=45, ha='right')
+plt.show()
+
