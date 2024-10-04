@@ -233,3 +233,90 @@ plt.pie(
 # Exibição do gráfico
 plt.show()
 
+
+# Analise da frequência de valores unicos dos 10 primeiros paises.
+# A análise será feita com um grafico de pizzas
+# Titulo do gráfico
+plt.title("ANÁLISE DE FREQUÊNCIA DOS 10 PRIMEIROS PAISES DA COLUNA")
+
+# Tamanho da figura do gráfico (largura e altura)
+plt.figure(figsize=(15,6))
+
+# Função da biblioteca matplotlib que cria gráficos de pizza
+plt.pie(
+    
+    # base de dados analisadas que ira conter apenas as 10 primeiras
+    # linhas do  gráfico de pizza
+    porcentagem_frequencia_pais.head(10),
+    
+    # O rótulo ira receber o indice das 10 primeiras linhas da coluna
+    labels = porcentagem_frequencia_pais.head(10).index,
+    
+    # Distância entre o nome dos rótulos e o centro do gráfico
+    labeldistance= 1.1,
+    
+    # Ângulo em que o gráfico será desenhado
+    startangle=90,
+    
+    # Formatação dos valores (porcentagens do gráfico)
+    autopct='%1.1f%%'
+)
+
+# Exibição do gráfico
+plt.show()
+
+
+# Agora vamos converter os valores da coluna 'Data de Adesão' para
+# o tipo date.
+# Observação nesse momento elas estão no tipo object (string/texto)
+
+base_dados_sem_nulos['Data de Adesão'] = pd.to_datetime(base_dados_sem_nulos['Data de Adesão'])
+
+# Verificando se a conversão foi realizada
+
+print("VERIFICANDO SE A CONVERSÃO FOI REALIZADA COM SUCESSSO")
+
+# A função dtypes irá mostrar o tipo de uma coluna
+print(base_dados_sem_nulos['Data de Adesão'].info())
+
+# Agora que onvertamos os valores vamos criar uma coluna para
+# conter os valores mes e ano
+
+# Criação das colunas mes e ano, onde datetimeIndex converte os dados
+# da coluna 'Data de Adesão'  para um tipo de dado que facilita a 
+# manipulação de informações de data. Isso é importante porque
+# transforma cada valor da coluna em um objeto de data que o pandas
+# pode analisar.
+# Month: Ira extrair o mes da coluna 'Data de Adesão'
+# Year: Irá extrair o ano da coluna 'Data de Adesão'
+base_dados_sem_nulos['Mes'] = pd.DatetimeIndex(base_dados_sem_nulos['Data de Adesão']).month
+
+base_dados_sem_nulos['Ano'] = pd.DatetimeIndex(base_dados_sem_nulos['Data de Adesão']).year
+
+# Verificando se a coluna foi criada
+
+print("VERIFICANDO SE AS COLUNAS FORAM CRIADAS")
+
+print(base_dados_sem_nulos.head())
+
+# Vamos agrupar os valores em pais, ano, mes
+print("AGRUPAMENTO DOS VALORES")
+
+# Para realizar o agrupamento vamos usar o metodo groupby
+# que ira receber como parametro o by, uma lista das colunas
+# que irão fazer parte do grupo. O count serve para contar os 
+# valores não nulos de cada coluna do grupo.
+print(base_dados_sem_nulos.groupby(by=['Pais', 'Ano','Mes']).count())
+
+# Agora vamos agrupar os valores do pais Brazil
+
+print("AGRUPAMENTO DOS VALORES DO BRASIL")
+
+# Vamos usar a função loc para filtrar os registros do Brasil na base de dados.
+# A função irá comparar a coluna 'Pais' e retornará uma série booleana,
+# onde True significa que o valor é igual a 'Brazil' e False significa que o valor é diferente.
+# Em seguida, loc utilizará essa série para selecionar as linhas onde o valor é True.
+analise_agrupada = base_dados_sem_nulos.loc[base_dados_sem_nulos['Pais'] == 'Brazil']
+print(analise_agrupada)
+
+
