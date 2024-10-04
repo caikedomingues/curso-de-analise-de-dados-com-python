@@ -74,23 +74,55 @@ print("COLUNAS DO DATASET")
 print(base_dados.columns)
 
 # Renomeando as colunas com a função rename
-# Antes de iniciar o rename vamos eliminar os espaços em branco
-# existentes no nome das colunas
+
+# Antes de renomear, vamos eliminar possiveis espaços em branco
+# que podem nos atrapalhar na renomeação das colunas
+
 base_dados.columns = base_dados.columns.str.strip()
 
-base_dados.rename({
-    'Company': 'Empresa'
-    #'Valuation ($B)': 'Valor ($)', 
-    #'Date Joined': 'Data de Adesão', 
-    #'Country': 'Pais',
-    #'City': 'Cidade',
-    #'Industry': 'Setor',
-    #'Investors': 'Investidores'
+base_dados.rename(columns={
+    'Company': 'Empresa',
+    'Valuation ($B)': 'Valor ($)', 
+    'Date Joined': 'Data de Adesão', 
+    'Country': 'Pais',
+    'City': 'Cidade',
+    'Industry': 'Setor',
+    'Investors': 'Investidores'
 },inplace=True) # O parametro inplace=True faz com que a alteração seja aplicada diretamente no dataframe original sem a necessidade de criar
 # uma cópia
 
 # Verificando se os nomes das colunas foram modificados
-
 print("VERIFICANDO O NOME DAS COLUNAS")
-
 print(base_dados.columns) 
+
+# Verificando as informações do dataframe
+print("INFORMAÇÕES GERAIS DO DATAFRAME")
+print(base_dados.info())
+
+# Apesar da função info retornar a quantidade de valores nulos, podemos
+# verificar quais linhas em especifico estão com os valores nulos.
+# Para realizar essa ação basta usar a função isnull que irá retornar
+# um valor booleano onde true indica que há valores nulos e false para
+# valores não nulos.
+
+print("LINHAS QUE CONTÉM VALORES NULOS")
+
+print(base_dados.isnull())
+
+# Também é possivel verificar o total de linhas nulas em cada coluna
+
+print("TOTAL DE VALORES NULOS EM CADA COLUNA")
+print(base_dados.isnull().sum())
+
+# Excluindo os valores nulos da coluna investidores: Vamos usar a função
+# dropna do pandas para excluir os 18 valores nulos da coluna investidores. Para excluir os valores nulos de uma coluna em especifico
+# precisamos passar como parametro para o dropna o subset com o nome da
+# coluna que deve ser afetada.
+# Observação: se usarmos a função sem passarmos um parametro, iremos
+# apagar os valores nulos de todas as colunas.
+
+base_dados_sem_nulos = base_dados.dropna(subset=['Investidores'])
+
+print("VERFICANDO SE OS VALORES NULOS FORAM APAGADOS")
+
+print(base_dados_sem_nulos.isnull().sum())
