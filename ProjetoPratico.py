@@ -149,7 +149,7 @@ print(base_dados_sem_nulos['Setor'].unique())
 
 # Verificando a frequência que os valores únicos aparecem 
 # na coluna setor, Para realizar essa ação, vamos utilizar
-# o método value_counts que tem como objetivo cnntar a 
+# o método value_counts que tem como objetivo contar a 
 # frequência dos valores únicos em uma coluna. Ela retorna
 # uma Series onde os valores distintos da coluna
 # são os indices e as respectivas contagens são os dados
@@ -172,9 +172,64 @@ print(base_dados_sem_nulos.value_counts(normalize=True))
 # Vamos verificar a frequencia de valores unicos em um grafico de barras
 # usando a biblioteca matplotlib.pyplot.
 
+# Define o titulo do gráfico
 plt.title('PORCENTAGEM DE FREQUÊNCIA DE VALORES ÚNICOS')
+# Define o tamanho da figura do gráfico(largura e altura)
 plt.figure(figsize=(15,6))
+
+# Função do matplotlib que cria gráficos de barra, a função irá
+# receber como parametro: a base de dados com o metodo value_conts onde
+# o index acessa os indices da série resultante, que são os valores únicos
+# da coluna. O primeiro argumento são os valores do eixo x e o segundo
+# argumento são os valores do eixo y.
+
 plt.bar(base_dados_sem_nulos['Setor'].value_counts().index, base_dados_sem_nulos['Setor'].value_counts())
+# Este trecho ajusta as os rótulos do eixo alterando a rotação
+# para 45 graus. O argumento 'ha' define o alinhamento horizontal
+# para a direita. Isso garante que, ao serem rotacionados, os rótulos não
+# se sobreponham aos outros
 plt.xticks(rotation=45, ha='right')
+# Exibe o gráfico
+plt.show()
+
+
+# Verificando a frequencia de valores nulos na coluna de paises
+print("FREQUENCIA DE VALORES ÚNICOS DA COLUNA DE PAISES")
+print(base_dados_sem_nulos['Pais'].value_counts())
+
+# verificando a porcentagem da frequencia de valores da coluna
+# pais, dessa vez vamos multiplicar os valores por 100 para a
+# visualização das porcentagens ser mais claras
+
+print("PORCENTAGEM DA FREQUENCIA DE VALORES UNICOS DA COLUNA PAIS")
+porcentagem_frequencia_pais = base_dados_sem_nulos['Pais'].value_counts(normalize=True) * 100
+
+print(porcentagem_frequencia_pais)
+
+# Construindo um gráfico de pizza com os valores da porcentagem de frequencia da coluna pais. Vamos usar a biblioteca matplotlib
+
+# Ira criar o titulo do gráfico
+plt.title("FREQUÊNCIA DE VALORES ÚNICOS DA TABELA PAIS")
+# Irá definir o tamanho da figura
+plt.figure(figsize=(22, 6))
+
+# Função que ira criar o gráfico de pizza
+plt.pie(
+    
+    # Base de dados analisada
+    porcentagem_frequencia_pais,
+    # Indice dos paises como rótulos
+    labels = porcentagem_frequencia_pais.index,
+    # Distancia entre o nome dos rótulos e o centro do gráfico
+    labeldistance = 1.1,
+    # No nosso caso não haverá sombra
+    shadow = False,
+    # Ângulo em que o gráfico começa a ser desenhado
+    startangle = 90,
+    # Formatação dos valores do gráfico
+    autopct = '%1.1f%%'
+)
+
+# Exibição do gráfico
 plt.show()
 
