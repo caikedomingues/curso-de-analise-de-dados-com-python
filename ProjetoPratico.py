@@ -336,5 +336,54 @@ print("VERIFICANDO SE A MUDANÇA DE TIPO FOI REALIZADA COM SUCESSO")
 # Imprimindo as informações gerais da coluna valor.
 print(base_dados_sem_nulos['Valor ($)'].info())
 
+# Vamos analisar o valor que cada pais arrecada em um determinado setor
+# para isso, vamos agrupar as colunas por paises e setores e iremos
+# somar o valor arrecado de cada um em seus devidos setores.
+print("AGRUPAMENTO POR PAIS E SETOR")
+
+# O metodo groupby irá agrupar os dados do dataframe pelas colunas
+# pais e setor. O metodo groupby permite que você agrupe os dados
+# com base nos valores dessas colunas, criando grupos distintos
+# de linhas com base nas combinaçoes únicas dos valores das colunas.
+# A coluna valor é a coluna que queremos somar os valores, com o 
+# objetivo de verificar o total de valor arrecado pelos paises
+# em seus setores.
+# O método sum irá somar os valores da coluna 'Valor ($)'.
+# O método reset_index irá redefinir os índices, transformando
+# os índices gerados pelo agrupamento em colunas normais no DataFrame,
+# garantindo que o resultado tenha um índice padrão numérico.
+# Resumindo o reset_index ira criar uma coluna que ira dar indices/
+# posições para os valores das colunas pertencentes ao grupo
+print(base_dados_sem_nulos.groupby(by=['Pais', 'Setor'])['Valor ($)'].sum().reset_index())
+
+# Podemos ordenar os valores em forma decrescente usando o sort_values
+print("ORDENANDO OS VALORES DO AGRUPAMENTO")
+
+# Esse trecho ira agrupar os valores por paises e setores e ira calcular
+# o total do valor arrecado por cada pais.
+# O reset_index ira transformar os indices gerados pelo agrupamento
+# em colunas normais.
+# o sort_values ira ordenar os valores em forma decrescente (Do maior
+# para o menor), sendo assim, ele receberá como parametro a coluna valor
+# que será o critério da organização e o ascending=False ira definir
+# a ordem em que os dados serão organizados, no caso de forma decrescente
+print(base_dados_sem_nulos.groupby(by=['Pais','Setor'])['Valor ($)'].sum().reset_index().sort_values(['Valor ($)'], ascending=False))
 
 
+# Vamos visualizar essas informações de forma gráfica(gráfico de linhas)
+# Para facilitar a plotagem, vamos atribuir o trecho anterior
+# em uma variável.
+analise_valor = base_dados_sem_nulos.groupby(by=['Pais', 'Setor'])['Valor ($)'].sum().reset_index().sort_values(['Valor ($)'], ascending = False)
+
+# Titulo do gráfico
+plt.title("ANÁLISE DO VALOR ARRECADADO POR CADA PAIS")
+# Ira definir o tamanho da figura do gráfico
+plt.figure(figsize=(15,6))
+# Função da biblioteca matplotlib que irá criar um gráfico de linhas
+# A função ira receber como parametro a coluna['pais'](eixo x que fica na horizontal)
+# e a coluna 'Valor'(eixo y que fica na vertical)
+plt.plot(analise_valor['Pais'], analise_valor['Valor ($)'])
+# Irá definir a rotação e o alinhamento dos eixos x(horiontal)
+plt.xticks(rotation=45, ha='right')
+# Exibição do gráfico.
+plt.show()
