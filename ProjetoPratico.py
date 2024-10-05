@@ -319,4 +319,22 @@ print("AGRUPAMENTO DOS VALORES DO BRASIL")
 analise_agrupada = base_dados_sem_nulos.loc[base_dados_sem_nulos['Pais'] == 'Brazil']
 print(analise_agrupada)
 
+# Transformando a coluna valor em tipo numerico
+# Para evitar erros, será necessário substituir os simbolos de sifrão
+# por um espaço em branco/vázio.
+# Para isso vamos atribuir a coluna valor o atributo str(que irá permitir operações com strings em toda a coluna valor) com o metodo replace que ira receber como parametro a string que será substituida
+# e a nova string que será incluida nas colunas. O parametro regex = False ira garnatir que a função trate o sifrão($) como uma string
+# e não como um metacaractere.
+base_dados_sem_nulos['Valor ($)'] = base_dados_sem_nulos['Valor ($)'].str.replace('$', '', regex=False)
+
+# Transformando a coluna valor em um tipo numérico
+base_dados_sem_nulos['Valor ($)'] = pd.to_numeric(base_dados_sem_nulos['Valor ($)'])
+
+# Verificando se a conversão deu certo
+print("VERIFICANDO SE A MUDANÇA DE TIPO FOI REALIZADA COM SUCESSO")
+
+# Imprimindo as informações gerais da coluna valor.
+print(base_dados_sem_nulos['Valor ($)'].info())
+
+
 
