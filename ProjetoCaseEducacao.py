@@ -174,3 +174,70 @@ print("FREQUÊNCIA DOS VALORES ÚNICOS DA COLUNA DE LANCHES")
 
 print(base_dados['Lanche'].value_counts() * 100)
 
+
+print("FREQUÊNCIA DOS VALORES ÚNICOS DA COLUNA DE DE CURSO DE PREPARAÇÃO")
+print(base_dados['Curso de preparacao'].value_counts(normalize=True) * 100)
+
+
+# Vamos criar um boxplot para visualizar a distribuição de notas de 
+# matemática por genêro
+
+# Metodo da biblioteca matplotlib que irá criar o titulo do gráfico
+plt.title("Distribuição das notas de matematica por genero")
+# Metodo da biblioteca seaborn que ira criar um gráfico boxplot,
+# o metodo recebe como parametro a base de dados analisada, os
+# valores que irão ocupar o eixo x e os valores que irão ocupar
+# o eixo y
+sns.boxplot(data=base_dados, x = 'Nota de matemática', y= 'Genero')
+
+# Método da biblioteca matplotlib que irá mostrar
+# o gráfico na tela
+plt.show()
+
+
+# Criação do boxplot para visualizar a distribuição das notas de leitura
+# por genêro
+
+# Irá criar o titulo do gráfico
+plt.title("Distriubuição das notas de leitura por genêro")
+
+# Método que ira criar o grafico boxplot, o método irá receber
+# como parametro a base de dados analisada, os valores do eixo x 
+# e os valores do eixo y. 
+sns.boxplot(data=base_dados, x = 'Nota de leitura', y = 'Genero')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Criação do boxplot para visualizar a distribuição de notas de escrita
+# por genêro
+
+# Ira criar o titulo do gráfico
+plt.title("Distribuição das notas de escrita por genêro")
+
+# Método que irá criar o boxplot, ele irá receber como parametro
+# a base de dados analisada, os valores do eixo x e os valores 
+# do eixo y
+sns.boxplot(data=base_dados, x = 'Nota de escrita', y = 'Genero')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Vamos descrever os valores da coluna de genero através de um agrupamento
+
+print("AGRUPAMENTO POR GENERO: ANALISE DESCRITIVA DOS GENEROS NAS COLUNAS DO DATAFRAME")
+
+# O resultado desse bloco é a analise descritiva (como contagem, média,
+# desvio padrão, etc) para cada genero, aplicada a todas as colunas numéricas da base de dados.
+print(base_dados.groupby(by=['Genero']).describe())
+
+
+# Também é possivel fazer a mesma coisa com uma coluna especifica.
+
+# Por exemplo, vamos visualizar a análise descritiva dos generos
+# na coluna de notas de matemática.
+
+print("ANALISE DESCRITIVA DOS GENEROS NA COLUNA DE NOTAS DE MATEMATICA")
+print(base_dados.groupby(by=['Genero']).describe()['Nota de matemática'])
