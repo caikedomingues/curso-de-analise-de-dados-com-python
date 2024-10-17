@@ -104,8 +104,10 @@ print(dados.head())
 # Ira definir o tamanho da imagem do gráfico
 plt.figure(figsize = (16,5))
 
-plt.style.use('seaborn-darkgrid')
-
+# Ira listar todos os estilos disponiveis da biblioteaca matplotlib
+print(plt.style.available)
+# Ira adicionar uma sombra no fundo do gráfico
+plt.style.use('seaborn-v0_8-darkgrid')
 # Irá definir o titulo do gráfico
 plt.title("Análise das ações - Fechamento")
 # Construindo um gráfico de linhas usando o metodo plot
@@ -118,5 +120,18 @@ plt.title("Análise das ações - Fechamento")
 # os valores da coluna de fechamentos variam ao longo do tempo.
 plt.plot(dados.index, dados['Fechamento'])
 
+# Titulo/rótulo do eixo x
+plt.xlabel("Periodo da cotação")
+
+# Titulo/rótulo do eixo y
+plt.ylabel("Valor da ação (R$)")
+
 # exibição do gráfico
 plt.show()
+
+
+# Verificando os ultimos valores do dataframe
+
+print("ULTIMOS VALORES DO DATAFRAME")
+
+print(dados.tail())
