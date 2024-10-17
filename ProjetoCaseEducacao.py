@@ -280,7 +280,33 @@ plt.show()
 # vamos agrupar pela coluna de nível de educação dos pais e descrever
 # os valores da coluna de notas de matemática.
 # O reset index irá transformar o indice das linhas em uma coluna
+
+print("ANALISANDO DESCRITIVAMENTE AS NOTAS DE MATEMÁTICAS DOS ALUNOS DE ACORDO COM O NIVEL DE EDUCAÇÃO DOS PAIS")
 print(base_dados.groupby(by=['Nivel de educação dos pais']).describe()['Nota de matemática'].reset_index())
 
 
+# Visualizando a distribuição das notas de matemática por Curso de preparação
 
+sns.boxplot(data=base_dados, x='Nota de matemática', y='Curso de preparacao')
+# exibição do gráfico
+plt.show()
+
+
+# Analisando descritivamente os valores da coluna de Curso de
+# preparação em relação às notas de matemática. Para isso,
+# vamos agrupar pela coluna de Curso de preparação e descrever
+# os valores da coluna de notas de matemática.
+# O reset index irá transformar o indice das linhas em uma coluna
+
+print("ANALISANDO DESCRITIVAMENTE AS NOTAS DE MATEMÁTICA DOS ALUNOS DE ACORDO COM OS CURSOS DE PREPARAÇÃO")
+
+print(base_dados.groupby(by=['Curso de preparacao']).describe()['Nota de matemática'].reset_index())
+
+
+# O scatterplot (gráfico de dispersão) mostrará a distribuição
+# ou concentração de dados numéricos correlacionados, com o objetivo
+# de identificar padrões, tendências ou outliers.
+sns.scatterplot(data=base_dados, x='Nota de matemática', y='Nota de escrita')
+
+# Exibição do gráfico
+plt.show()
