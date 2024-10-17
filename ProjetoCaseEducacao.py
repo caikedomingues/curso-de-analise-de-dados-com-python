@@ -241,3 +241,46 @@ print(base_dados.groupby(by=['Genero']).describe())
 
 print("ANALISE DESCRITIVA DOS GENEROS NA COLUNA DE NOTAS DE MATEMATICA")
 print(base_dados.groupby(by=['Genero']).describe()['Nota de matemática'])
+
+
+# Utilizando um pairplot para visualizar varios tipos de gráficos
+# dos valores numéricos com o objetivo de verificar a relação entre
+# diferentes variáveis numéricas
+sns.pairplot(base_dados)
+
+# exibição do gráfico
+plt.show()
+
+# também é possivel usar o pairplot em uma coluna especifica
+# usando o parametro hue, que ira receber o nome da coluna
+# especifica.
+sns.pairplot(base_dados, hue='Etnia')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Vamos visualizar a distribuição das notas de matemática por genero
+# usando um boxplot
+sns.boxplot(data=base_dados, x = 'Genero', y = 'Nota de matemática')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Visualizando a distribuição das notas de matemática por nivel de educação dos pais
+sns.boxplot(data=base_dados, x='Nota de matemática', y='Nivel de educação dos pais')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Agora vamos analisar descritivamente os valores da coluna de nível
+# de educação dos pais em relação às notas de matemática. Para isso,
+# vamos agrupar pela coluna de nível de educação dos pais e descrever
+# os valores da coluna de notas de matemática.
+# O reset index irá transformar o indice das linhas em uma coluna
+print(base_dados.groupby(by=['Nivel de educação dos pais']).describe()['Nota de matemática'].reset_index())
+
+
+
