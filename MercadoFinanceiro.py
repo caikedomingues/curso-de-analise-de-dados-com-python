@@ -135,3 +135,11 @@ plt.show()
 print("ULTIMOS VALORES DO DATAFRAME")
 
 print(dados.tail())
+
+# O trecho dados['Fechamento'].rolling(5) cria uma "janela móvel" de 5 
+# períodos sobre a coluna 'Fechamento' do DataFrame dados.
+# Isso significa que ele está preparando uma análise de médias ou cálculos baseados nos últimos 5 valores de cada ponto da série de dados. A função rolling(5) não realiza o cálculo por si só, mas cria um objeto que permite calcular estatísticas como média, soma, desvio padrão, etc., para cada janela de 5 linhas consecutivas.
+# Resumindo ele ira criar uma janela que se move sobre os dados a cada
+# 5 valores.
+print("CALCULO DA MÉDIA APÓS 5 VALORES")
+dados['Fechamento'].rolling(5).mean()
