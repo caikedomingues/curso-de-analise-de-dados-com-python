@@ -141,5 +141,143 @@ print(dados.tail())
 # Isso significa que ele está preparando uma análise de médias ou cálculos baseados nos últimos 5 valores de cada ponto da série de dados. A função rolling(5) não realiza o cálculo por si só, mas cria um objeto que permite calcular estatísticas como média, soma, desvio padrão, etc., para cada janela de 5 linhas consecutivas.
 # Resumindo ele ira criar uma janela que se move sobre os dados a cada
 # 5 valores.
+
+# Para análisar melhor, vamos criar 2 variáveis, uma que irá conter
+# média móvel e outra que ira conter a média tendência
 print("CALCULO DA MÉDIA APÓS 5 VALORES")
-dados['Fechamento'].rolling(5).mean()
+
+# media com intervalo de 5 dias 
+media_movel = dados['Fechamento'].rolling(5).mean()
+
+
+print("CALCULO DA MÉDIA APÓS 30 DIAS")
+# média com intervalo de 30 dias
+media_tendencia = dados['Fechamento'].rolling(30).mean()
+
+
+# Agora, vamos plotar esses valores em um gráfico de linhas
+
+# Ira adicionar uma sombra (grade) no fundo do gráfico
+plt.style.use('seaborn-v0_8-darkgrid')
+
+# Ira configurar o tamanho da imagem do gráfico
+plt.figure(figsize=(16, 5))
+
+# Ira criar o titulo do gráfico
+plt.title("Análise das ações da magalu - fechamento")
+
+# plotagem / inserção dos valores no gráfico. A função plot
+# ira receber 2 parametros: os valores do exio x e os valores
+# eixo y.
+
+# Valores de x: irá receber os indices (datas) das cotações
+
+# valores de y: irá receber como  parametro o valor das cotações
+plt.plot(dados.index, dados['Fechamento'])
+
+plt.plot(dados.index, media_movel)
+
+plt.plot(dados.index, media_tendencia)
+
+# Rótulo / titulo do eixo x
+plt.xlabel("Periodo da Cotação")
+
+# Rótulo / titulo do eixo y
+plt.ylabel("Valor da ação")
+
+# Exibição do gráfico.
+plt.show()
+
+
+# Também é possivel verificar os dados usando um boxplot da biblioteca
+# seaborn, que ira receber como parametro 2 valores: a base de dados
+# e o valor do eixo x
+sns.boxplot(data=dados, x = 'Fechamento')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Vamos melhorar essa visualização criando um boxplot mensal
+
+# Primeiro, vamos criar uma nova coluna na base de dados que irá
+# armazenar os meses da coluna Data. Como a coluna Data é uma
+# coluna do tipo datetime, podemos usar a função month para 
+# capturar os meses da coluna.
+
+# Criação da coluna 'mes'
+
+base_dados['mes'] = base_dados['Data'].dt.month
+
+# Verificando se a coluna foi criada com sucesso
+print("VISUALIZANDO A COLUNA DE MESES")
+
+print(base_dados.head())
+
+# Construção do boxplot usando a biblioteca seaborn.
+# A função irá receber como parametro a base de dados, os valores de x
+# (meses)  e os valores de y(valor do fechamento)
+
+# Ira configurar o tamanho da figura do gráfico
+plt.figure(figsize=(16,5))
+
+# Função que irá criar o boxplot
+sns.boxplot(data=base_dados, x = 'mes', y = 'Fechamento')
+
+# Exibição do gráfico
+plt.show()
+
+
+# Também é interessante agrupar os valores por mes, para descrever
+# analiticamente os valores de fechamento em cada mes
+
+print("ANALISANDO OS VALORES DE FECHAMENTO POR MES USANDO UM AGRUPAMENTO")
+
+# Vamos agrupar os dados por mes e descrever os valores da Fechamento
+# em cada mes.
+print(base_dados.groupby(by=['mes'])['Fechamento'].describe())
+
+
+# Por fim, vamos crir um gráfico candlestick: O grafico candlestick
+# é amplamente utilizado para representar o comportamento de preços
+# de um ativo(como ações, criptomoedas ou commodities) durante um 
+# periodo de tempo especifico, geralmente em análise técnica
+
+# Função da biblioteca plotly que irá criar o gráfico candlestick
+
+# Função que cria um objeto gráfico vázio no qual você pode adicionar
+# diferentes tipos de gráficos. Neste caso, você está criando uma
+# figura que conterá gráfico candlestick
+grafico = go.Figure(
+    
+    # Irá definir o conteudo do gráfico, ou seja, quais dados
+    # e como serão visualizados
+    data = [
+        
+        # Classe Candlestick que ira criar o grafico que desenha velas
+        # com base nos preços de abertura, maxima, minima e fechamento
+        # de um ativo ao longo do tempo.
+        go.Candlestick(
+            
+            # Eixo x que irá receber os indices do dataset (as datas no
+            # nosso caso)
+            x = dados.index,
+            # Ira definir os valores de abertura das ações ou ativos em
+            # cada periodo de tempo.
+            open = dados['Abertura'],
+            
+            # Ira definir os valores máximos atingidos pelos preços do ativo em cada periodo de tempo
+            high = dados['Maior'],
+            
+            # Ira definir os valores minimos atingidos pelo preço dos
+            # ativos em cada periodo de tempo
+            low = dados['Menor'],
+            
+            # Irá definir os valores de fechamento dos ativos
+            close = dados['Fechamento'],
+        )
+    ]
+)
+
+# Ira exibir o gráfico
+grafico.show()
