@@ -143,3 +143,49 @@ sns.barplot(data=base_dados, x = 'Ano', y='Global', ci=None, color='#69b3a2', es
 # Exibição do gráfico
 plt.show()
 
+# Como os anos 2019 e 2020 não tiveram vendas, vamos retirar eles da coluna de anos. Para isso, vamos usar o comando loc para filtrar
+# os anos (2019, 2020) com o intuito de não mostrar mais eles na 
+# base de dados
+
+# Basicamente, vamos passar como condição do loc, todos os valores 
+# diferentes de 2019 e 2020 com o objetivo de remover esses anos 
+# da base de dados
+base_dados = base_dados.loc[(base_dados['Ano'] != '2019') & (base_dados['Ano'] != '2020')]
+
+print("VERIFICANDO SE OS ANOS 2019 E 2020 FORAM OCULTADOS")
+
+print(base_dados.head())
+
+
+# Agora vamos analisar a distribuição dos dados da coluna 'Global'
+# usando um grafico kdeplot da biblioteca seaborn
+# kdeplot: Serve para visualizar a de uma variável continua, mas 
+# em vez de mostrar barras, ele desenha uma linha que representa
+# a densidade de probabilidade dos dados.
+
+# Ira configurar o tamanho da imagem do gráfico
+plt.figure(figsize=(12,5))
+
+# irá definir o titulo do gráfico alinhado a esquerda com tamanho 14
+
+plt.title('Distribuição das vendas globais', loc='left', fontsize=14)
+
+# Ira adicionar grades no fundo gráfico
+plt.style.use('ggplot')
+
+# função que irá construir o kdeplot da coluna 'Global'
+# shade: Este argumento preenche a área abaixo da curva
+# de densidade com uma cor.
+# bw: irá definir a largura da banda(suavização da curva de densidade no gráfico.) o que pode afetar as variações dos dados
+# color: Define a cor da curva
+# linewidth: define a largura da linha.
+sns.kdeplot(base_dados['Global'], shade=True, bw=1, color='#96a8a8', linewidth=2.5)
+
+# Irá definir o rótulo do eixo y
+plt.ylabel('Densidade')
+
+# Irá exibir o gráfico
+plt.show()
+
+
+
