@@ -188,4 +188,44 @@ plt.ylabel('Densidade')
 plt.show()
 
 
+# Verificando o total de vendas por ano: Para realizar essa ação,
+# vamos agrupar os dados por ano e calcular o total de valores em
+# cada coluna.
+
+print("VENDAS POR ANO")
+
+print(base_dados.groupby(by=['Ano']).sum())
+
+
+# Visualiando a distribuição global por ano usando o boxplot da 
+# biblioteca seaborn
+
+# Irá definir o tamanho do gráfico
+plt.figure(figsize=(10,5))
+
+# Irá definir o titulo do gráfico
+plt.title("Distribuição das vendas globais por ano")
+
+# Rótulo do eixo x
+plt.xlabel("Vendas globais")
+
+# Função que irá criar o boxplot, ela ira receber como a parametro
+# a base de dados com os valores, os valores do eixo x(ano) e os
+# valores do eixo y(Vendas globais).
+sns.boxplot(data=base_dados, x = 'Ano', y = 'Global')
+
+# Exibição do gráfico
+plt.show()
+
+# Vamos usar a função loc para visualizar valores maiores ou iguais
+# a 10 (milhões) da coluna 'global'
+
+print("VISUALIZANDO VALORES MAIORES OU IGUAIS A 10 NA COLUNA DE VENDAS GLOBAIS")
+
+# Função que irá filtrar os valores maiores ou iguais a 10
+print(base_dados.loc[(base_dados['Global'] >= 10)])
+
+
+
+
 
