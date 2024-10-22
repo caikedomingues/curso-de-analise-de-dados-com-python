@@ -46,6 +46,12 @@ pd.set_option("display.max_columns", None)
 print("VISUALIZANDO AS 5 PRIMEIRAS LINHAS DA BASE DE DADOS")
 print(base_dados.head())
 
+# Informações gerais do dataset
+
+print("INFORMAÇÕES GERAIS DO DATASET")
+
+print(base_dados.info())
+
 
 # Analisando a dimensão (tamanho) da base de dados, a função irá
 # retornar 2 valores: o numero de linhas e o numero de colunas.
@@ -150,11 +156,11 @@ plt.show()
 # Basicamente, vamos passar como condição do loc, todos os valores 
 # diferentes de 2019 e 2020 com o objetivo de remover esses anos 
 # da base de dados
-base_dados = base_dados.loc[(base_dados['Ano'] != '2019') & (base_dados['Ano'] != '2020')]
+base_dados = base_dados.loc[(base_dados['Ano'] != 2019) & (base_dados['Ano'] != 2020)]
 
 print("VERIFICANDO SE OS ANOS 2019 E 2020 FORAM OCULTADOS")
 
-print(base_dados.head())
+print(base_dados['Ano'].unique())
 
 
 # Agora vamos analisar a distribuição dos dados da coluna 'Global'
@@ -224,8 +230,3 @@ print("VISUALIZANDO VALORES MAIORES OU IGUAIS A 10 NA COLUNA DE VENDAS GLOBAIS")
 
 # Função que irá filtrar os valores maiores ou iguais a 10
 print(base_dados.loc[(base_dados['Global'] >= 10)])
-
-
-
-
-
