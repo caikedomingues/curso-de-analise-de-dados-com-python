@@ -230,3 +230,67 @@ print("VISUALIZANDO VALORES MAIORES OU IGUAIS A 10 NA COLUNA DE VENDAS GLOBAIS")
 
 # Função que irá filtrar os valores maiores ou iguais a 10
 print(base_dados.loc[(base_dados['Global'] >= 10)])
+
+
+# Verificando o total de vendas por ano
+print("VERIFICANDO O TOTAL DE VENDAS POR ANO")
+# Ira trazer o total de vendas de cada coluna por ano. essa variável
+# será utilizada no cálculo de porcentagem de vendas, já que ela 
+# retorna o valor total de vendas por região
+analise = base_dados.groupby(by=['Ano']).sum().reset_index()
+
+print(analise)
+
+
+# analisando a proporção dos 100% de cada região comparado ao Total
+
+# Aqui o código esta criando uma lista de porcentagens de vendas para 
+# cada região, com o objetivo de comparar as vendas regionais com as
+# vendas globais. O for irá percorrer as colunas com o objetivo de 
+# criar pares de valores (vendas regionais, vendas globais) usando a função zip.
+# Função zip: Tem como objetivo juntar 2 listas ou colunas, ou seja,
+# o Python vai "emparelhar" o primeiro valor de vendas_america com o 
+# primeiro valor de vendas_globais, o segundo com o segundo, e assim por diante.
+# Dentro da lista também teremos o cálculo da porcentagem
+america = [america / total * 100 for america, total in zip(analise['America do Norte'], analise['Global'])]
+
+europa = [europa / total * 100 for europa, total in zip(analise['Europa'], analise['Global'])]
+
+japao = [japao / total * 100 for japao, total in zip(analise['Japao'], analise['Global'])]
+
+mundo = [mundo / total * 100 for mundo, total in zip(analise['Resto do mundo'], analise['Global'])]
+
+
+print("PORCENTAGEM DA AMERICA DO NORTE NAS VENDAS GLOBAIS")
+
+print(america)
+
+print("PORCENTAGEM DA EUROPA NAS VENDAS GLOBAIS")
+
+print(europa)
+
+print("PORCENTAGEM DO JAPÃO NAS VENDAS GLOBAIS")
+
+print(japao)
+
+print("PORCENTAGEM DO RESTO DO MUNDO NAS VENDAS GLOBAIS")
+
+print(mundo)
+
+
+plt.figure(figsize=(10,5))
+
+# Largura da barra no gráfico
+largura_barra = 0.85
+
+rotulos = analise['Ano']
+
+grupos = [0, 1, 2, 3, 4, 5]
+
+plt.title("Análise de distribuição por continentes")
+
+plt.bar(grupos, america, width=largura_barra, color='#b5ffb9', edgecolor='white')
+
+plt.bar(grupos, europa, bottom=america, width=largura_barra, color='#f9bc86', edgecolor='white')
+
+plt.bar(grupos, japao, bottom=[a + b for a, b in zip(america, europa)], width=largura_barra, color = '#a3acff', edgecolor='white')
