@@ -345,3 +345,45 @@ plt.legend(['America N', 'Europa', 'Japão','Mundo'], loc='upper left', bbox_to_
 # Exibe o gráfico
 plt.show()
 
+
+# Vamos dar uma analisada nas empresas que publicaram os jogos usando
+# a função unique que irá retornar os valores únicos das colunas 
+
+print("VERIFICANDO OS VALORES UNICOS SA COLUNA EDITORA")
+
+print(base_dados['Editora'].unique())
+
+# Como podemos perceber, há uma enorme quantidade de editoras na coluna
+# o que pode, em alguns momentos, dificultar as nossas análises, já que
+# os dados da coluna são do tipo texto, logo, é interessante transformamos esses valores em valores quantitativos, por exemplo, 
+# a rockstar irá passar a ser 1, a activision 2 e assim por diante
+
+# import da biblioteca sklearn que irá permitir a utilização
+# da classe labelencoder que irá poder transformar dados
+# categóricos (textos) em valores numéricos.
+from sklearn.preprocessing import LabelEncoder
+
+# criação do objeto labelEncoder
+funcao_rótulo = LabelEncoder()
+
+# Variável que ira conter a função fit_transform que irá aprender
+# sobre os dados da coluna editora e transforma-los em numeros
+editora_transformada = funcao_rótulo.fit_transform(base_dados['Editora'])
+
+# Verificando a transformação 
+print("VERIFICANDO SE A TRANSFORMAÇÃO DA COLUNA EDITORA FOI REALIZADA COM SUCESSO")
+print(editora_transformada)
+
+
+# Agora vamos criar uma nova coluna na base de dados que irá conter
+# os valores que representam as editoras
+
+base_dados['Produtor'] = editora_transformada
+
+# Verificando se a coluna foi criada
+
+print("VERIFICANDO SE AS COLUNAS FORAM CRIADAS")
+
+print(base_dados.columns)
+
+# Agora cada editora possui um código de identificação
