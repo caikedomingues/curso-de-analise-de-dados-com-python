@@ -277,20 +277,71 @@ print("PORCENTAGEM DO RESTO DO MUNDO NAS VENDAS GLOBAIS")
 
 print(mundo)
 
+# Criando um grafico de barras empilhadas usando o matplotlib
 
+# barras: compara a distribuição das vendas em quatro regiões (América do Norte, Europa, Japão e Resto do Mundo) ao longo de diferentes anos. Cada barra representa a soma total das vendas, enquanto as diferentes camadas dentro da barra mostram a contribuição de cada região para o total.
+
+# Tamanho da imagem do gráfico
 plt.figure(figsize=(10,5))
 
 # Largura da barra no gráfico
 largura_barra = 0.85
 
+# Extrai os rótulos para o eixo x
 rotulos = analise['Ano']
 
+# Define os grupos para o eixo x. Cada número representa uma posição
+# onde uma barra será desenhada. Esses numeros devem corresponder ao
+# número de anos que nós temos no dataframe.
 grupos = [0, 1, 2, 3, 4, 5]
 
+# Titulo do gráfico
 plt.title("Análise de distribuição por continentes")
 
+# Plotagens dos valores nas barras
+
+# 1° camada da barra: representa as vendas da américa do norte e a função
+# bar irá receber como parametro: o width que é a largura da barra, o 
+# color que é a cor da primeira camada da barra e o edgecolor que é a cor
+# da borda das barras
 plt.bar(grupos, america, width=largura_barra, color='#b5ffb9', edgecolor='white')
 
+# 2° camada da barra: Representa as vendas da Europa e a função bar 
+# recebe como parametro: o bottom que indica que essas barras começam
+# onde as barras da america terminam, que resulta em um gráfico de 
+# barras empilhado, o color define a cor da segunda camada e o edgecolor
+# irá definir a cor da borda da barra.
 plt.bar(grupos, europa, bottom=america, width=largura_barra, color='#f9bc86', edgecolor='white')
 
+# 3° camada da barra: representa as vendas do japao e a função bar recebe
+# como paremetro: o bottom que irá especificar que essas barras começam
+# onde as barras da america e da europa terminaram, o color define a cor
+# da camada e o edgecolor define a cor da borda da barra
 plt.bar(grupos, japao, bottom=[a + b for a, b in zip(america, europa)], width=largura_barra, color = '#a3acff', edgecolor='white')
+
+# 4° camada da barra: representa as vendas do resto do mundo e a função bar ira receber como parametro, o bottom que indica que a barra irá
+# começar onde as barras da america, europa e japão terminaram, o 
+# color ira definir a cor da camada e o edcolor a cor da borda da barra
+plt.bar(grupos, mundo, bottom=[a + b + c for a, b, c in zip(america, europa, japao)], width=largura_barra, color='#d3acfe', edgecolor='white')
+
+# Observação: as funções bar também irão receber como parametro os valores dos eixos x e y
+
+# Define as posições do eixo x (grupos) e atribui os rótulos correspondentes (rotulos). Isso garante que cada grupo tenha um rótulo correspondente ao ano ou categoria.
+plt.xticks(grupos, rotulos)
+
+# Rótulo do eixo x
+plt.xlabel('Grupo')
+
+# Rótilo do eixo y
+plt.ylabel('Distribuição (%)')
+
+# : Adiciona uma legenda ao gráfico. A lista define os rótulos da legenda para cada uma das camadas de barras.
+
+# loc='upper left' posiciona a legenda no canto superior esquerdo.
+# bbox_to_anchor=(0.15, -0.1) ajusta a posição da legenda em relação à figura.
+# ncol=4 define que a legenda deve ter quatro colunas.
+plt.legend(['America N', 'Europa', 'Japão','Mundo'], loc='upper left', bbox_to_anchor = (0.15, -0.1), ncol=4)
+
+# Exibe o gráfico
+plt.show()
+
