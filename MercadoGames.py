@@ -378,12 +378,31 @@ print(editora_transformada)
 # Agora vamos criar uma nova coluna na base de dados que irá conter
 # os valores que representam as editoras
 
-base_dados['Produtor'] = editora_transformada
+base_dados['codigo_editora'] = editora_transformada
 
 # Verificando se a coluna foi criada
 
-print("VERIFICANDO SE AS COLUNAS FORAM CRIADAS")
+print("VERIFICANDO SE AS COLUNA CODIGO DA EDITORA FOI CRIADAS")
 
 print(base_dados.columns)
 
 # Agora cada editora possui um código de identificação
+
+# Agora vou fazer a mesma coisa com as colunas 'jogo' e 'genero'
+
+# Transformando as colunas 'jogo' e 'genero' em rótulos
+jogo_transformado = funcao_rótulo.fit_transform(base_dados['Jogo'])
+
+genero_transformado = funcao_rótulo.fit_transform(base_dados['Genero'])
+
+# Criando as colunas que irão conter os códigos 
+
+base_dados['codigo_jogo'] = jogo_transformado
+
+base_dados['codigo_genero'] = genero_transformado
+
+# Agora vamos verificar se as colunas foram criadas
+
+print("VERIFICANDO SE AS COLUNAS FORAM CRIADAS")
+
+print(base_dados.columns)
