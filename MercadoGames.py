@@ -406,3 +406,46 @@ base_dados['codigo_genero'] = genero_transformado
 print("VERIFICANDO SE AS COLUNAS FORAM CRIADAS")
 
 print(base_dados.columns)
+
+
+# A biblioteca seaborn, também permite trabalhar com paletas de cores
+# Usando a função color_palette, que recebe como parametro o tipo
+# da paleta e a quantidade de cores.
+
+paleta_cores = sns.color_palette('husl', 8)
+
+print("MOSTRANDO A PALETA DE CORES")
+
+print(paleta_cores)
+
+# Agora, vamos usar a nossa paleta de cores em um gráfico scatterplot
+# da biblioteca seaborn
+
+# Scatterplot(gráfico de dispersão): É utilizado para visualizar a relação entre 2 variáveis continuas, plotando pontos em um gráfico. 
+# Ele é muito útil para observar padrões, correlações, tendências ou agrupamentos nos dados
+
+# Irá definir o titulo do gráfico
+plt.title('Análise dos produtores de games(mi)')
+
+# Ira definir o tamanho da imagem do gráfico
+plt.figure(figsize=(20,5))
+
+# A função que irá construir o gráfico deve receber como argumento
+# a base de dados, o valor do eixo x, o valor do eixo y e o indice
+# da cor da paleta que queremos utilizar no gráfico
+
+sns.scatterplot(data=base_dados, x='codigo_editora', y='Global', color=paleta_cores[0])
+
+#Exibição do gráfico
+plt.show()
+
+# Também podemos verificar qual gênero vendeu mais usando um scatterplot
+
+# Tamanho do gráfico
+plt.figure(figsize=(20,5))
+
+plt.title('Análise dos genêros de games(mi)')
+
+sns.scatterplot(data=base_dados, x = 'codigo_genero', y = 'Global', color=paleta_cores[0])
+
+plt.show()
