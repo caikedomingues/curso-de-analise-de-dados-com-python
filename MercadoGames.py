@@ -444,8 +444,25 @@ plt.show()
 # Tamanho do gráfico
 plt.figure(figsize=(20,5))
 
+# titulo do gráfico
 plt.title('Análise dos genêros de games(mi)')
 
+# Função que ira criar o scatterplot dos generos de jogo
 sns.scatterplot(data=base_dados, x = 'codigo_genero', y = 'Global', color=paleta_cores[0])
 
+# Exibição do gráfico
+plt.show()
+
+# Análise dos games mais vendidos usando o scatterplot
+
+# Titulo do gráfico
+plt.title('Análise dos games(mi)')
+
+# Tamanho da imagem do gráfico
+plt.figure(figsize=(20,5))
+
+# Função que ira criar o scatterplot dos jogos
+sns.scatterplot(data=base_dados, x='codigo_jogo', y = 'Global', color=paleta_cores[0])
+
+# Exibição do gráfico
 plt.show()
