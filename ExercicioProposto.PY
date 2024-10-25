@@ -125,3 +125,79 @@ plt.hist(base_dados_serie['Avaliação Media'])
 plt.show()
 
 # Os valores mais comuns são os valores entre 8.0 e 8.8.
+
+# 2.descobrir a série mais antiga, qual é a série mais antiga do dataset
+# e em que ano foi lançada
+
+# Primeiro vou tentar ordenar os anos em ordem crescente (do menor para o maior)
+anos_em_ordem_crescente = sorted(base_dados_serie['Ano de Lançamento'].unique())
+print("Valores únicos da coluna Ano de Lançamento em ordem crescente: ", anos_em_ordem_crescente)
+
+# Vou tentar filtrar os titulos que tenham o ano igual a 1951
+# Essa variável que ira conter o filtro das séries lançadas em 1951 (mais antigo)
+# Vamos filtrar as séries usando a função loc que irá conter a condição para o 
+# filtro.
+titulos_lancados_em_1951 = base_dados_serie.loc[base_dados_serie['Ano de Lançamento'] == 1951]
+
+# Ira definir o tamanho do gráfico
+plt.figure(figsize=(30,10))
+
+# Titulo do gráfico
+plt.title("Analisando as séries mais antigas")
+
+# Ira definir a rotação e o tamanho da fonte
+plt.xticks(rotation=90, fontsize=10)
+
+# Ira construir um grafico de pontos com o objetivo de sinalizar o ano de lançamento
+# da série, escolhi esse gráfico por que achei mais simples de visualizar, porém
+# acredito que não há necessidade da criação de 1, levando em consideração que o filtro
+# ja encontrou a série mais antiga
+sns.scatterplot(data=titulos_lancados_em_1951, x='Titulo', y= 'Ano de Lançamento')
+
+# Ira exibir o gráfico de pontos
+plt.show()
+
+# Impressão das informações da série mais antiga
+print("SÉRIE MAIS ANTIGA")
+print(titulos_lancados_em_1951)
+
+# Resposta da questão 2: a série mais antiga é a love lucy.
+
+
+# 3.Séries com avaliação acima de 9: Quantas séries possuem uma 
+# avaliação média maior que 9
+
+# Primeiro vou filtrar as séries que possuem a avaliação média
+# maior que 9, depois vou verificar o tamanho da coluna para 
+# descobrir quantas séries possuem os critérios passados no
+# filtro.
+
+series_com_avaliacao_acima_de_9 = len(base_dados_serie.loc[base_dados_serie['Avaliação Media'] > 9])
+
+print("Quantidade de séries que possuem avaliação média ácima de 9: ", series_com_avaliacao_acima_de_9)
+
+# Resposta da questão 3: 39 séries
+
+
+# 4.Popularidade por genêro: Entre os genêros disponiveis, qual genêro
+# possui em média, a maior quantidade de votos?
+
+# primeiro vou verificar qual é o maior numero de votos
+
+votos_em_ordem_crescente = sorted(base_dados_serie['Numero de Votos'])
+
+# para facilitar a visualização no gráfico, vou agrupar os dados 
+# por genero e somar o total de votos de cada um
+
+generos_agrupados = base_dados_serie.groupby(by=['Generos'])['Numero de Votos'].sum().reset_index()
+
+generos_agrupados['Generos'] = pd.Categorical(generos_agrupados['Generos'], categories=generos_agrupados['Generos'], ordered=True)
+
+
+print("Ordem crescente dos votos: ", votos_em_ordem_crescente)
+
+print("GENÊROS MAIS VOTADO")
+
+print(generos_agrupados)
+
+
