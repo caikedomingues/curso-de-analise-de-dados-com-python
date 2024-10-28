@@ -71,7 +71,7 @@ print(base_dados_serie.columns)
 
 # Verificando a quantidade de valores nulos das colunas
 
-print("QUANTIDADE DE VALORES Nulos")
+print("QUANTIDADE DE VALORES NULOS")
 
 print(base_dados_serie.isnull().sum())
 
@@ -465,5 +465,102 @@ print(series_com_mais_de_500['Avaliação Media'].mean())
 # Resposta da questão 9: A média das avaliações médias das séries que possuem 
 # mais de 500.000 votos é 8.3675
 
+
+
+# 10. Gêneros de maior audiência: Quais são os três generos mais 
+# recorrentes nas séries com mais de avaliação média maior que 8?
+
+# Primeiro vou filtrar as séries que possuem média maior que 8.
+
+series_com_media_maior_que_8 = base_dados_serie.loc[base_dados_serie['Avaliação Media'] > 8]
+
+# Agora vou agrupar os dados por genero e avaliação média.
+
+# size: Esse método conta o número de ocorrências em cada grupo. Por exemplo, se houver 5 séries de um determinado gênero com a mesma avaliação média, o size() retorna 5 para esse grupo específico.
+series_agrupadas_por_genero = series_com_media_maior_que_8.groupby(by=['Generos', 'Avaliação Media']).size().reset_index()
+
+# Agora vou analisar a porcentagem de frequencia dos generos em cada titulo
+print("GÊNEROS MAIS RECORRENTES EM SÉRIES COM AVALIAÇÃO MÉDIA MAIOR QUE 8")
+
+# Vamos calcular a frequência usando a função value_counts que ira receber
+# como parametro o normalize True, que irá calcular a porcentagem de 
+# frequência dos gêneros
+print(series_agrupadas_por_genero['Generos'].value_counts(normalize=True) * 100)
+
+# Resposta da questão 10:
+
+# 1° Genero: Drama
+# Ocupa 3% dos dados
+
+# 2° Genero: a coluna de Action, Adventure, Animation     
+# ocupam 2.79% dos dados
+
+# 3° Genero: a coluna de  Crime, Drama, Thriller  
+
+# Também ocupam 2.79% dos dados
+
+# 11. Top 10 séries mais recentes e bem avaliadas: Liste as 10 séries
+# mais recentes com avaliação acima de 8.
+
+# Primeiro vou filtrar as séries de 2024 com avalições maiores que 8
+
+series_de_2024_com_avaliacao_maior_que_8 = base_dados_serie.loc[(base_dados_serie['Avaliação Media'] > 8) & (base_dados_serie['Ano de Lançamento'] == 2024)]
+
+# Agora vou criar um gráfico de barras para criar um ranking com essas séries 
+
+# Irá definir o tamanho da imagem do gráfico
+plt.figure(figsize=(30,15))
+
+# Ira definir o titulo do gráfico
+plt.title("Séries de 2024 com avaliações maiores que 8")
+
+# Ira definir a rotação e o tamanho da fonte do eixo x
+plt.xticks(rotation=90, fontsize=10)
+
+# Ira criar o gráfico de barras. A função recebe como argumento a base de dados, o valor do
+# eixo x e o valor do eixo y
+sns.barplot(data=series_de_2024_com_avaliacao_maior_que_8, x = 'Titulo', y = 'Avaliação Media')
+
+# Exibição do gráfico
+plt.show()
+
+# Agora vamos agrupar esses dados por titulo e avaliação para podermos 
+# imprimir na tela o resultado de suas avaliações, que tornará ainda mais
+# fácil a montagem do rank
+
+series_2024_agrupadas = series_de_2024_com_avaliacao_maior_que_8.groupby(by=['Titulo', 'Avaliação Media']).size().reset_index()
+
+# Agora vamos ordenar em ordem decrescente as avaliações médias para podermos organizar melhor
+# o ranking das séries
+print(sorted(series_2024_agrupadas['Avaliação Media'], reverse=True))
+
+# Exibição das séries e sua votações
+print("SÉRIES DE 2024 COM AVALIAÇÕES MÉDIAS MAIORES QUE 8")
+
+print(series_2024_agrupadas)
+
+# 1° Lugar: The penguin e x-men 97
+# Avaliação Média: 8.8
+
+# 2° Lugar: Shogun e Very PariVarik
+# Avaliação Média: 8.6
+
+# 3° Lugar: Mr Bates vs. The Post Office
+# Avaliação Média: 8.5
+
+# 4° Lugar: fallout
+# Avaliação Média: 8.4
+
+# 5° Lugar: Kaiju No. 8  e Solo Leveling 
+# Avaliação Média: 8.3
+
+# 6° Lugar: Queen of Tears    
+# Avaliação Média: 8.2
+
+# 7° lugar: One Day e Ripley      
+# Avaliação Média: 81.
+
+# Observação, como podemos observar no gráfico, em 2024, as séries
+# com avaliação acima de 8, não alcançaram a nota 9.
 
 
