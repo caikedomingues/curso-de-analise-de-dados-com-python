@@ -466,3 +466,52 @@ sns.scatterplot(data=base_dados, x='codigo_jogo', y = 'Global', color=paleta_cor
 
 # Exibição do gráfico
 plt.show()
+
+
+# Report gerencial: vamos criar um relatório usando matplotlib
+# que será baseado em todas as nossas análises feitas anteriormente
+
+# Primeiro vamos definir o tamanho da imagem do gráfico
+# de cada subplot
+fig, ax = plt.subplots(figsize=(40,30))
+
+# Quantidade de colunas
+colunas = 3
+
+# quantidade de linhas
+linhas = 2
+
+# cor de fundo dos gráficos
+cor_fundo = '#f5f5f5'
+
+# Ira aplicar a cor de fundo nos gráfiocs
+ax.set_facecolor(cor_fundo)
+fig.set_facecolor(cor_fundo)
+
+# estilo dos graficos
+plt.style.use('seaborn-v0_8')
+
+# Ira definir o a quantidade de linhas, colunas e a posição 
+# que queremos acessar
+plt.subplot(linhas, colunas, 1)
+plt.title('Gráfico 1')
+
+plt.subplot(linhas, colunas, 2)
+plt.title('Gráfico 2')
+
+plt.subplot(linhas,colunas, 3)
+plt.title('Gráfico 3')
+
+plt.subplot(linhas, colunas, 4)
+plt.title('Gráfico 4')
+
+plt.subplot(linhas, colunas, 5)
+plt.title('Gráfico 5')
+
+plt.subplot(linhas, colunas, 6)
+plt.title('Gráfico 6')
+
+plt.show()
+
+# Irá listar os estilos de gráficos disponiveis
+print(plt.style.available)
