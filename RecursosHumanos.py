@@ -160,7 +160,7 @@ plt.show()
 plt.title("Regplot que mostra a relação entre a coluna de salarios e a coluna de anos de experiencia usando uma reta de regressão")
 
 # Tamanho do gráfico
-plt.figure(figsize=(10,5))
+plt.figure(figsize=(30,10))
 
 # Rótulos do eixo x
 plt.xlabel('Salário')
