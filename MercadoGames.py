@@ -488,30 +488,82 @@ cor_fundo = '#f5f5f5'
 ax.set_facecolor(cor_fundo)
 fig.set_facecolor(cor_fundo)
 
+# Ira definir o titulo da imagem dos gráficos. A função irá
+# receber como parametro o color, o tamanho da fonte e um
+# fontweight para definir a espessura da fonte (quanto mais
+# de 1000, maior é a espessura(negrito) da fonte)
+plt.suptitle('Report Gerencial', fontsize=22, color='#404040', fontweight=600)
+
+# Irá listar os estilos disponiveis
+print(plt.style.available)
+
 # estilo dos graficos
 plt.style.use('seaborn-v0_8')
 
 # Ira definir o a quantidade de linhas, colunas e a posição 
-# que queremos acessar
+# que queremos acessar.
+
+# Criação do 1° gráfico 
 plt.subplot(linhas, colunas, 1)
-plt.title('Gráfico 1')
+# Titulo do 1° grafico alinhado a esquerda com tamanho da fonte 14
+plt.title('Quantidade de vendas globais(mi)', loc='left', fontsize=14)
 
+# Criação do gráfico bar da biblioteca matplotlib
+plt.bar(base_dados['Ano'], base_dados['Global'],color='#69b3a2')
+
+# Rótulo do eixo y
+plt.ylabel('Quantidade de Vendas (mi)')
+
+# Criação do grafico 2
 plt.subplot(linhas, colunas, 2)
-plt.title('Gráfico 2')
+# Titulo do gráfico 2
+plt.title('Análise da distribuição Global (mi)', loc='left', fontsize=14)
 
+# criação do gráfico boxplot
+sns.boxplot(data=base_dados, x='Ano', y='Global')
+
+# Criação do gráfico 3
 plt.subplot(linhas,colunas, 3)
-plt.title('Gráfico 3')
 
+# Titulo do gráfico 3 
+plt.title('Análise de distribuição por continentes', loc='left', fontsize=14)
+
+# plot da america
+plt.bar(grupos, america, width=largura_barra, color='#b5ffb9', edgecolor='white' )
+
+# plot da europa
+plt.bar(grupos, europa, bottom=america, width=largura_barra, color='#f9bc86', edgecolor='white')
+
+# plot do Japão
+plt.bar(grupos, japao, bottom=[A + B for A, B in zip(america, europa)], width=largura_barra, color='#a3acff', edgecolor='white')
+
+# plot do resto do mundo
+plt.bar(grupos, mundo, bottom=[A + B + C for A, B, C in zip(america, europa, japao)], width=largura_barra, color='#d3acfe', edgecolor='white')
+
+# Criação do gráfico 4
 plt.subplot(linhas, colunas, 4)
-plt.title('Gráfico 4')
 
+plt.title('Análise dos produtores de games(mi)', loc='left', fontsize=14)
+
+sns.scatterplot(data=base_dados, x='codigo_editora', y='Global', color=paleta_cores[0])
+
+# Criação do gráfico 5
 plt.subplot(linhas, colunas, 5)
-plt.title('Gráfico 5')
+plt.title('Análise dos gêneros dos games(mi)', loc='left', fontsize=14)
 
+sns.scatterplot(data=base_dados, x='codigo_genero', y='Global', color = paleta_cores[0])
+
+# Criação do gráfico 6
 plt.subplot(linhas, colunas, 6)
-plt.title('Gráfico 6')
+plt.title('Análise dos games(mi)', loc='left', fontsize=14)
 
+sns.scatterplot(data=base_dados, x='codigo_jogo', y='Global', color=paleta_cores[0])
+
+# Ajustando o layout para evitar a sobreposição de gráficos. Basicamente
+# vamos definir um espaço de largura e altura que os graficos devem ter
+# um do outro.
+plt.subplots_adjust(hspace=0.35, wspace=0.15)
+
+# Ira exibir o gráfico
 plt.show()
 
-# Irá listar os estilos de gráficos disponiveis
-print(plt.style.available)
