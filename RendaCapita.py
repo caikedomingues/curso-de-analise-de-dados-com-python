@@ -83,9 +83,6 @@ print("VERIFICANDO SE AS CONVERSÕES FUNCIONARAM")
 # Ira retornar o tipo das colunas
 print(base_dados.dtypes)
 
-# Conversão dos objects para numéricos
-base_dados['PIB per capita'] = pd.to_numeric(base_dados['PIB per capita'])
-
 # verificando se os pontos foram adicionados no valor da coluna
 # de PIB
 
@@ -122,8 +119,6 @@ cor_fundo = '#f5f5f5'
 # Para funcionar melhor esse exercicio vamos pegar apenas 7 linhas do 
 # do dataframe
 
-base_dados = base_dados.head(7)
-
 # Criando o sistema de grids
 # FacetGrid: é uma estrutura de gráficos do seaborn que permite criar 
 # uma grade de subgráficos, onde cada subgráfico representa um subconjunto dos dados com base em alguma caracteristica(variável).
@@ -144,18 +139,15 @@ base_dados = base_dados.head(7)
 # de ir para a proxima linha. Nesse caso, col_wrap=4 significa que serão
 # exibidos até 4 subgraficos por linha. Se houver mais de 4 territórios
 # unicos, as facetas seguintes irão para a linha seguinte.
-grid_graficos = sns.FacetGrid(base_dados, col='Territorio', hue='Territorio', col_wrap=4)
+grid_graficos = sns.FacetGrid(base_dados, col='Territorio', hue='Territorio', col_wrap=4, height=40)
 
 
-# Descobri que antes de criar os graficos de linha eu preciso ordenar
-# os valores da coluna Ano. observação, a ordenação dos valores não
-# altera a relação entre as colunas, ou seja, os dados continuam 
-# intactos e corretos, ou seja, continuam a mesma coisa de antes da 
-# ordenação.
-base_dados = base_dados.sort_values('Ano')
-
-# Comando que irá adicionar um gráfico de linhas em cada gráfico
-grid_graficos = grid_graficos.map(sns.lineplot, 'Ano', 'PIB per capita')
+# Comando que irá adicionar um gráfico de linhas em cada gráfico. Infelizmente, acho que como estou fazendo pelo vscode, não irei 
+# conseguir deixar o grafico muito organizado por conta da quantidade
+# de dados da base. Ja tentei reduzir a quantidade de linhas, porém,
+# alguns graficos ficam sem linhas por conta da falta de dados para
+# construção das linhas.
+grid_graficos = grid_graficos.map(plt.plot, 'Ano', 'PIB per capita')
 
 plt.show()
 
