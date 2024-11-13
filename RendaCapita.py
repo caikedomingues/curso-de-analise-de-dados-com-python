@@ -86,6 +86,13 @@ print(base_dados.dtypes)
 # Conversão dos objects para numéricos
 base_dados['PIB per capita'] = pd.to_numeric(base_dados['PIB per capita'])
 
+# verificando se os pontos foram adicionados no valor da coluna
+# de PIB
+
+print("VERIFICANDO SE AS VIRGULAS FORAM SUBSTITUIDAS")
+print(base_dados.head())
+
+
 # Agrupando os dados por território
 print('AGRUPANDO OS DADOS POR TERRITÓRIO')
 
@@ -145,7 +152,7 @@ grid_graficos = sns.FacetGrid(base_dados, col='Territorio', hue='Territorio', co
 # altera a relação entre as colunas, ou seja, os dados continuam 
 # intactos e corretos, ou seja, continuam a mesma coisa de antes da 
 # ordenação.
-base_dados['Ano'] = sorted(base_dados['Ano'])
+base_dados = base_dados.sort_values('Ano')
 
 # Comando que irá adicionar um gráfico de linhas em cada gráfico
 grid_graficos = grid_graficos.map(sns.lineplot, 'Ano', 'PIB per capita')
